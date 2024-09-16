@@ -1,0 +1,25 @@
+# Ignore the virtual environment directory
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore environment variable files
+.env
+
+# Ignore VS Code settings and other IDE-specific files
+.vscode/
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore distribution and packaging files
+dist/
+build/
+*.egg-info/
+
+# Ignore logs and database files
+*.log
+*.sqlite3

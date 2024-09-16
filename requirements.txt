@@ -1,0 +1,8 @@
+django
+
+# Required for establishing a database connection
+psycopg2
+
+# Required for REST
+djangorestframework 
+django-cors-headers
