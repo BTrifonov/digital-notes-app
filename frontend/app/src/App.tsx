@@ -1,10 +1,15 @@
-
-import { Container, CssBaseline, ThemeProvider, Button } from '@mui/material'
+import {CssBaseline, ThemeProvider, Button } from '@mui/material'
 import './App.css'
-import LoginPage from './components/pages/LoginPage'
 import { useState } from 'react'
 
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+
 import { darkTheme, lightTheme } from './theme'
+import AppRoutes from './AppRoutes';
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // Using dayjs adapter
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -16,23 +21,16 @@ function App() {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      
-      <Button onClick={handleThemeToggle}>
-        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-      </Button>
-      <Container
-        sx={{
-          marginTop: '20%',
-          marginBottom: '20%',
-          width: '40%', 
-          height: 'auto', 
-          borderRadius: '10px', 
-          borderStyle: 'outset',
-          backgroundColor: theme => theme.palette.background.paper
-        }}
-      > 
-        <LoginPage/>
-      </Container>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <CssBaseline/>
+        <Button 
+          onClick={handleThemeToggle}
+          sx = {{position: 'fixed', top: '0', right: '0', margin: '0.5rem', borderStyle: 'solid', borderColor: 'blue'}}
+        >
+          {isDarkMode ? <LightModeIcon/> : <DarkModeIcon/>}
+        </Button>
+        <AppRoutes/>
+      </LocalizationProvider>
     </ThemeProvider>
   )
 }
