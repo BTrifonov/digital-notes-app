@@ -1,11 +1,20 @@
 import { Box, Button, ButtonGroup, Container, Divider, Link,TextField, Typography, useTheme } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function LoginPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  function handleSubmit() {
+    //Redirect
+    navigate('/home-page')
+  }
+
 
   return (
     <Container
@@ -28,7 +37,7 @@ export default function LoginPage() {
         <Typography variant="h5">Sign in</Typography>
         <TextField id="filled-basic" label="Email" variant="outlined" />
         <TextField id="user-password" label="Password" helperText="Minimum 8 characters" type="password" variant="outlined" />
-        <Button variant="contained">Submit</Button>
+        <Button variant="contained" onClick={handleSubmit}>Submit</Button>
 
         <Link href='/signup' underline="hover">
           Create account
