@@ -4,8 +4,10 @@ import {Box, Button, Container, TextField, Typography, useTheme} from "@mui/mate
 import { DatePicker } from '@mui/x-date-pickers';
 
 import Checkbox from '@mui/material/Checkbox';
+import { NavbarProps } from '../../types/global';
+import ButtonAppBar from '../common/ButtonAppBar';
 
-export default function SignUpPage() {
+export default function SignUpPage({handleThemeToggle, isDarkMode}:NavbarProps) {
     const theme = useTheme();
 
     const [checked, setChecked] = React.useState<boolean>(false);
@@ -15,47 +17,50 @@ export default function SignUpPage() {
     }
 
     return (
-        <Container
-            sx={{
-                marginTop: "10%", 
-                marginBottom: "10%", 
-                width: "40%", 
-                height: 'auto'
-            }}
-        >
-            <Box
-                sx= {{
-                    display: "flex",
-                    flexDirection: "column", 
-                    bgcolor: theme.palette.background.paper,
-                    borderStyle: "hidden", 
-                    borderRadius: "2%"
+        <Container disableGutters maxWidth={false}>
+            <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode}/>
+            <Container
+                sx={{
+                    marginTop: "10%", 
+                    marginBottom: "10%", 
+                    width: "40%", 
+                    height: 'auto'
                 }}
             >
-                <Typography variant='h5'>Sign up</Typography>
-                
-                <TextField id="sign-up-first-name" label="First Name" variant='outlined'></TextField>
-                <TextField id="sign-up-last-name" label="Last Name" variant='outlined'></TextField>
-                
-                <DatePicker 
-                    label="Birth date"
-                >
-                </DatePicker>
-
                 <Box
-                    sx = {{
-                        display: 'flex', 
-                        flexDirection: 'row'
+                    sx= {{
+                        display: "flex",
+                        flexDirection: "column", 
+                        bgcolor: theme.palette.background.paper,
+                        borderStyle: "hidden", 
+                        borderRadius: "2%"
                     }}
                 >
-                    <Checkbox
-                        checked={checked}
-                        onChange={handleChange}
-                    /> 
-                    <Typography variant='subtitle1'> I accept the terms of use</Typography>
+                    <Typography variant='h5'>Sign up</Typography>
+                    
+                    <TextField id="sign-up-first-name" label="First Name" variant='outlined'></TextField>
+                    <TextField id="sign-up-last-name" label="Last Name" variant='outlined'></TextField>
+                    
+                    <DatePicker 
+                        label="Birth date"
+                    >
+                    </DatePicker>
+
+                    <Box
+                        sx = {{
+                            display: 'flex', 
+                            flexDirection: 'row'
+                        }}
+                    >
+                        <Checkbox
+                            checked={checked}
+                            onChange={handleChange}
+                        /> 
+                        <Typography variant='subtitle1'> I accept the terms of use</Typography>
+                    </Box>
+                    <Button variant='contained'> Sign Up</Button>
                 </Box>
-                <Button variant='contained'> Sign Up</Button>
-            </Box>
+            </Container>    
         </Container>
     )
 }
