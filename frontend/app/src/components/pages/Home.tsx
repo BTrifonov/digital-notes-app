@@ -2,13 +2,13 @@ import * as React from 'react';
 import { getStroke } from 'perfect-freehand';
 import { getSvgPathFromStroke } from '../../utils/getSvgPathFromStroke';
 import { Box, Container } from '@mui/material';
-import { NavbarProps } from '../../types/global';
 import ButtonAppBar from '../common/ButtonAppBar';
+import { ButtonAppBarProps } from '../../types/navbar';
 
 type Point = [number, number, number];  // A single point: [x, y, pressure]
 type Stroke = Point[];  // A stroke is a collection of points
 
-export default function HomePage({ handleThemeToggle, isDarkMode }: NavbarProps) {
+export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBarProps) {
   const [strokes, setStrokes] = React.useState<Stroke[]>([]);  // Store multiple strokes
   const [currentStroke, setCurrentStroke] = React.useState<Stroke>([]);  // Store the current stroke being drawn
 
@@ -43,7 +43,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: NavbarProps)
 
   return (
     <Container disableGutters maxWidth={false}>
-      <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
+      <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={true}/>
       <Container
         disableGutters
         maxWidth={false}

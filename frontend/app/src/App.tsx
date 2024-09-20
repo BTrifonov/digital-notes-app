@@ -22,7 +22,7 @@ function App() {
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CssBaseline />
-        <AppRoutes handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode}/>
+        <AppRoutes handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
       </LocalizationProvider>
     </ThemeProvider>
   );

@@ -6,9 +6,10 @@ import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ButtonAppBar from "../common/ButtonAppBar";
-import { NavbarProps } from "../../types/global";
+import { ButtonAppBarProps } from "../../types/navbar";
 
-export default function LoginPage({handleThemeToggle, isDarkMode}: NavbarProps) {
+
+export default function LoginPage({handleThemeToggle, isDarkMode}: ButtonAppBarProps) {
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -23,14 +24,12 @@ export default function LoginPage({handleThemeToggle, isDarkMode}: NavbarProps) 
 
   return (
     <Container disableGutters maxWidth={false}>
-      <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode}/>
+      <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
       <Container
-      sx={{
-      marginTop: '20%',
-      marginBottom: '20%',
-      width: '40%', 
-      height: 'auto'
-      }}
+        sx={{
+          width: '50%', 
+          marginTop: '15%'
+          }}
       > 
         <Box
           sx= {{
