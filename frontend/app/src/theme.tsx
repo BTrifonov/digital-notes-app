@@ -90,8 +90,6 @@ export const darkTheme = createTheme({
       main: '#f48fb1',
     },
     background: {
-      //default: '#1c1c1e',  // Chat background color (dark gray)
-      //paper: '#2c2c2e',    // Input field background color (slightly lighter gray)
       default: '#2d2d30',  // Brighter dark gray for the main background
       paper: '#38383b',    // Slightly brighter gray for elevated surfaces
     },

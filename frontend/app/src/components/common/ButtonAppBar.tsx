@@ -9,7 +9,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { ButtonAppBarProps } from '../../types/navbar';
 
-export default function ButtonAppBar({handleThemeToggle, isDarkMode, isAuth}:ButtonAppBarProps) {
+export default function ButtonAppBar({handleThemeToggle, isDarkMode, isAuth, handleNotesMenuToggle}:ButtonAppBarProps) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -22,8 +22,10 @@ export default function ButtonAppBar({handleThemeToggle, isDarkMode, isAuth}:But
           }}
         >
           {isAuth &&
-          <IconButton>
-            <CalculateIcon />
+          <IconButton 
+            onClick = {handleNotesMenuToggle}
+          >
+            <CalculateIcon/>
           </IconButton>}
           <IconButton
             sx={{marginLeft: '3em'}}

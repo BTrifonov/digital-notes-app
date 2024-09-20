@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Grid2, IconButton, Typography } from "@mui/material";
+import { Box, Button, Grid2, Typography } from "@mui/material";
 import ButtonAppBar from "../common/ButtonAppBar";
 import { ButtonAppBarProps } from "../../types/navbar";
 
@@ -57,10 +57,10 @@ export default function WelcomePage({handleThemeToggle, isDarkMode}: ButtonAppBa
                 </Box>
            </Grid2>
            <Grid2 size={12}>
-            <Button onClick={handleSignIn} size='large' variant="contained">
+            <Button onClick={handleSignUp} size='large' variant="contained">
                 Sign up
             </Button>
-            <Button onClick={handleSignUp} size='large' variant="contained">
+            <Button onClick={handleSignIn} size='large' variant="contained">
                 Sign in
             </Button>
            </Grid2>
