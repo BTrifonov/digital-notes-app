@@ -16,10 +16,15 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
   }
 
   return (
-    <Grid2 container display={'flex'} style={{height: '100vh'}} justifyContent={'space-evenly'} flexDirection={'column'}>
     <Grid2 
-      size={12}
+      container 
+      display={'flex'} 
+      style={{height: '100vh'}} 
+      justifyContent={'space-evenly'} 
+      flexDirection={'column'} 
+      rowSpacing={8}
     >
+    <Grid2 size={12}>
       <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={true} handleNotesMenuToggle={handleNotesMenuToggle}/>
     </Grid2>
 
