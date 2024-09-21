@@ -11,8 +11,8 @@ import { ButtonAppBarProps } from '../../types/navbar';
 
 export default function ButtonAppBar({handleThemeToggle, isDarkMode, isAuth, handleNotesMenuToggle}:ButtonAppBarProps) {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box>
+      <AppBar>
         <Toolbar 
           variant='dense'
           disableGutters
