@@ -1,35 +1,30 @@
-import { Box, Button, ButtonGroup, Drawer, Toolbar } from "@mui/material"
+import { Box, Button, ButtonGroup, Divider, Drawer, IconButton, Toolbar } from "@mui/material"
 
-export function DrawNavBar() {
-    const drawerWidth = `${(1 / 12) * 100}%`;
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { DrawNavBarProps } from "../../types/draw-navbar";
+
+export function DrawNavBar({handleSaveNote, isDialogOpen}: DrawNavBarProps) {
     return (
-        <Drawer
-        anchor="right"
-        variant="persistent"
-        sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-    >
-        <Toolbar/>
-        <Box sx={{width: '100%', height: '100%', overflow: 'auto', bgcolor: 'lightblue', borderRadius: '1em'}}>
-            <ButtonGroup
-                orientation="vertical"
-            >
-                <Button>
-                    D1
-                </Button>
+        <Box
+            sx={{
+                height: '100%',
+                width: '100%', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-evenly'
+            }}
+        >
+            <IconButton>
+                <BorderColorIcon/>
+            </IconButton>
+
+            <Divider variant="middle"/>
             
-                <Button>
-                    D2
-                </Button>
-                <Button>
-                    D3
-                </Button>
-            </ButtonGroup> 
+            <IconButton onClick={handleSaveNote}>
+                <SaveAsIcon/>
+            </IconButton>
         </Box>
-    </Drawer>
     )
 }

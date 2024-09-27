@@ -5,3 +5,4 @@ export interface AuthProps {
 export interface NotesHierarchyBarProps {
   open: boolean;
 }
+

@@ -1,12 +1,15 @@
 // theme.tsx
 import { createTheme } from '@mui/material/styles';
 
+
+// TODO: Fix the colors of the main and the secondary palettes
 export const lightTheme = createTheme({
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
-          margin: '1em' // Adds margin to all TextFields
+          margin: '1em', // Adds margin to all TextFields
+          //backgroundColor: '#90caf9' // ligher blue
         },
       },
     },
@@ -38,6 +41,8 @@ export const lightTheme = createTheme({
     background: {
       default: '#fce4ec',  // Warm, soft pink background (a warm, inviting tone)
       paper: '#f5f5f5',    // Soft off-white for paper surfaces
+    
+      //paper: '#42a5f5'
     },
     text: {
       primary: '#212121',  // Dark gray for primary text, ensures readability
@@ -60,7 +65,9 @@ export const darkTheme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          margin: '1em' // Adds margin to all TextFields
+          margin: '1em', // Adds margin to all TextFields
+          
+          //backgroundColor: '#5a5a5d' //lighter gray for text fields, think about using dedicated input fields
         },
       },
     },
