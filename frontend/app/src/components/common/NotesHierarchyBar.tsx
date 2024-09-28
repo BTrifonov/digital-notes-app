@@ -10,8 +10,6 @@ import NewNotesCategory from "./NewNotesCategory";
 
 export default function NotesHierarchyBar() {
     // TODO: Do I need this?
-
-
     return (
       <Box
         sx={{
