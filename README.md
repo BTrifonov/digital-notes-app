@@ -1,5 +1,5 @@
 # digital-notes-app
-A simple web application for creating, storing and organizing digitally handwritten notes
+A small web application for creating, storing and organizing digitally handwritten notes
 
 Further improvements should include specific subject-related features such as:
 1. math problem correction
