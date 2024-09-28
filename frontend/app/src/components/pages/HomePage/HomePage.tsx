@@ -1,16 +1,14 @@
 import * as React from 'react';
-import {Box, Grid2, useTheme } from '@mui/material';
-
+import {Grid2, useTheme } from '@mui/material';
 
 import TopNavbar from '../../common/TopNavbar';
 import { ButtonAppBarProps } from '../../../types/navbar';
 
-
 import DrawCanvas from './DrawCanvas';
 
-
-import { DrawNavBar } from './DrawNavBar';
 import SaveNoteDialog from './SaveNoteDialog';
+import LeftSidebar from './LeftSidebar';
+import RightSidebar from './RightSidebar';
 
 
 //TODO: Read through the documentation how to work with spacing in grid v2
@@ -54,7 +52,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
             bgcolor: theme.palette.background.paper
           }} 
         >
-          {isNotesMenuOpen && <Box sx={{height:'100%', width: '100%', bgColor: 'red'}}/>}
+          {isNotesMenuOpen && <LeftSidebar/>}
         </Grid2>
 
         <Grid2 
@@ -74,7 +72,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
             bgcolor: theme.palette.background.paper
           }}
         >
-          <DrawNavBar handleSaveNote={handleSaveNoteRequest} isDialogOpen={false}/>
+          <RightSidebar/>
         </Grid2>
       </Grid2>
 

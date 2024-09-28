@@ -10,7 +10,7 @@ export default function DrawCanvas() {
     const [strokes, setStrokes] = React.useState<Stroke[]>([]);  // Store multiple strokes
     const [currentStroke, setCurrentStroke] = React.useState<Stroke>([]);  // Store the current stroke being drawn
 
-    function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+      function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
         const svg = e.currentTarget;
         const { left, top } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
         e.currentTarget.setPointerCapture(e.pointerId);
