@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import ButtonAppBar from "../common/ButtonAppBar";
-import { ButtonAppBarProps } from "../../types/navbar";
+
+import TopNavbar from "../../common/TopNavbar";
+import { ButtonAppBarProps } from "../../../types/navbar";
 
 
 export default function LoginPage({handleThemeToggle, isDarkMode}: ButtonAppBarProps) {
@@ -24,7 +25,7 @@ export default function LoginPage({handleThemeToggle, isDarkMode}: ButtonAppBarP
 
   return (
     <Container disableGutters maxWidth={false}>
-      <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
+      <TopNavbar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
       <Container
         sx={{
           width: '50%', 

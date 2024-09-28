@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { Box, Grid2,  Stack,  useTheme } from '@mui/material';
-import ButtonAppBar from '../common/ButtonAppBar';
-import { ButtonAppBarProps } from '../../types/navbar';
-import NotesHierarchyBar from '../common/NotesHierarchyBar';
-import DrawCanvas from '../common/DrawCanvas';
-import { DrawNavBar } from '../common/DrawNavBar';
-import SaveNoteDialog from '../common/SaveNoteDialog';
+import {Box, Grid2, useTheme } from '@mui/material';
+
+
+import TopNavbar from '../../common/TopNavbar';
+import { ButtonAppBarProps } from '../../../types/navbar';
+
+
+import DrawCanvas from './DrawCanvas';
+
+
+import { DrawNavBar } from './DrawNavBar';
+import SaveNoteDialog from './SaveNoteDialog';
 
 
 //TODO: Read through the documentation how to work with spacing in grid v2
@@ -38,7 +43,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
       columnSpacing={0.5}
     >
       <Grid2 size={12}>
-        <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={true} handleNotesMenuToggle={handleNotesMenuToggle}/>
+        <TopNavbar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={true} handleNotesMenuToggle={handleNotesMenuToggle}/>
       </Grid2>
 
       <Grid2 container display={'flex'} sx={{flexGrow:1}}>
@@ -49,7 +54,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
             bgcolor: theme.palette.background.paper
           }} 
         >
-          {isNotesMenuOpen && <NotesHierarchyBar/>}
+          {isNotesMenuOpen && <Box sx={{height:'100%', width: '100%', bgColor: 'red'}}/>}
         </Grid2>
 
         <Grid2 

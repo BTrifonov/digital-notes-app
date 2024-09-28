@@ -3,11 +3,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import * as React from 'react';
-import { DrawNavBarProps } from '../../types/draw-navbar';
+import { DrawNavBarProps } from '../../../types/draw-navbar';
 
 export default function SaveNoteDialog({handleSaveNote, isDialogOpen}:DrawNavBarProps) {
- 
-    
     return (
         <Dialog
             open={isDialogOpen}

@@ -2,9 +2,6 @@ import { CssBaseline, ThemeProvider, Button } from '@mui/material';
 import './App.css';
 import { useState } from 'react';
 
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-
 import { darkTheme, lightTheme } from './theme';
 import AppRoutes from './AppRoutes';
 

@@ -1,9 +1,10 @@
-import { Box, Button, ButtonGroup, Divider, Drawer, IconButton, Toolbar } from "@mui/material"
+import { Box, Divider, IconButton} from "@mui/material"
 
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import { DrawNavBarProps } from "../../types/draw-navbar";
+
+import { DrawNavBarProps } from "../../../types/draw-navbar";
 
 export function DrawNavBar({handleSaveNote, isDialogOpen}: DrawNavBarProps) {
     return (

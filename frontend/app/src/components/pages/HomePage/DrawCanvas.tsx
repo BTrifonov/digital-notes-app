@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { getStroke } from 'perfect-freehand';
-import { getSvgPathFromStroke } from '../../utils/getSvgPathFromStroke';
+
+import { getSvgPathFromStroke } from '../../../utils/getSvgPathFromStroke';
 
 type Point = [number, number, number];  // A single point: [x, y, pressure]
 type Stroke = Point[];  // A stroke is a collection of points

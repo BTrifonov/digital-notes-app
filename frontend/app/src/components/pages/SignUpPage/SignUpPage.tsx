@@ -4,8 +4,9 @@ import {Box, Button, Container, TextField, Typography, useTheme} from "@mui/mate
 import { DatePicker } from '@mui/x-date-pickers';
 
 import Checkbox from '@mui/material/Checkbox';
-import ButtonAppBar from '../common/ButtonAppBar';
-import { ButtonAppBarProps } from '../../types/navbar';
+
+import TopNavbar from '../../common/TopNavbar';
+import { ButtonAppBarProps } from '../../../types/navbar';
 
 export default function SignUpPage({handleThemeToggle, isDarkMode}:ButtonAppBarProps) {
     const theme = useTheme();
@@ -18,7 +19,7 @@ export default function SignUpPage({handleThemeToggle, isDarkMode}:ButtonAppBarP
 
     return (
         <Container disableGutters maxWidth={false}>
-            <ButtonAppBar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
+            <TopNavbar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={false}/>
             <Container
                 sx={{
                     marginTop: "15%",  

@@ -9,7 +9,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { ButtonAppBarProps } from '../../types/navbar';
 
-export default function ButtonAppBar({handleThemeToggle, isDarkMode, isAuth, handleNotesMenuToggle}:ButtonAppBarProps) {
+export default function TopNavbar({handleThemeToggle, isDarkMode, isAuth, handleNotesMenuToggle}:ButtonAppBarProps) {
   return (
     <Box>
       <AppBar>

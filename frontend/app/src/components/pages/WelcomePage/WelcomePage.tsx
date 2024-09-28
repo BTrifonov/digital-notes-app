@@ -1,9 +1,9 @@
 import { Box, Button, Grid2, Typography } from "@mui/material";
-import ButtonAppBar from "../common/ButtonAppBar";
-import { ButtonAppBarProps } from "../../types/navbar";
 
+import TopNavbar from "../../common/TopNavbar";
+import { ButtonAppBarProps } from "../../../types/navbar";
 
-import logo from '../../assets/logo.svg'
+import logo from '../../../assets/logo.svg';
 
 import '@fontsource/dancing-script'
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function WelcomePage({handleThemeToggle, isDarkMode}: ButtonAppBa
     return (
         <Grid2 container spacing={3}>
            <Grid2 size={12}>
-           <ButtonAppBar 
+           <TopNavbar
                 handleThemeToggle={handleThemeToggle} 
                 isDarkMode={isDarkMode} 
                 isAuth={false} />
