@@ -14,7 +14,14 @@ import RightSidebar from './RightSidebar';
 //TODO: Read through the documentation how to work with spacing in grid v2
 export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBarProps) {
   const theme = useTheme();
-  
+
+  /**
+   * Drawing hooks
+   */
+  const [drawColor, setDrawColor] = React.useState<string>('black');
+  const [lineWeight, setLineWeight] = React.useState<number>(5);
+
+
   const [saveNoteTriggered, setSaveNoteTrigger] = React.useState(false)
 
   // default value of the canvas should be the full width
@@ -62,7 +69,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
             bgcolor: theme.palette.background.paper
           }}
         >
-          <DrawCanvas />
+          <DrawCanvas color={drawColor} lineWeight={lineWeight}/>
         </Grid2>
 
         <Grid2 
@@ -72,7 +79,7 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
             bgcolor: theme.palette.background.paper
           }}
         >
-          <RightSidebar/>
+          <RightSidebar handleColorChange={setDrawColor} handleLineWeightChange={setLineWeight}/>
         </Grid2>
       </Grid2>
 

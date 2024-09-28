@@ -2,14 +2,16 @@ import * as React from 'react';
 import { getStroke } from 'perfect-freehand';
 
 import { getSvgPathFromStroke } from '../../../utils/getSvgPathFromStroke';
+import { DrawCanvasProps } from '../../../types/draw-canvas';
 
 type Point = [number, number, number];  // A single point: [x, y, pressure]
 type Stroke = Point[];  // A stroke is a collection of points
 
-export default function DrawCanvas() {
+export default function DrawCanvas({color, lineWeight}:DrawCanvasProps) {
     const [strokes, setStrokes] = React.useState<Stroke[]>([]);  // Store multiple strokes
     const [currentStroke, setCurrentStroke] = React.useState<Stroke>([]);  // Store the current stroke being drawn
 
+    
       function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
         const svg = e.currentTarget;
         const { left, top } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
@@ -51,25 +53,25 @@ export default function DrawCanvas() {
             {/* Render previous strokes */}
             {strokes.map((stroke, index) => {
               const pathData = getSvgPathFromStroke(getStroke(stroke, {
-                size: 16,
+                size: lineWeight,
                 thinning: 0.5,
                 smoothing: 0.5,
                 streamline: 0.5,
               }));
-              return <path key={index} d={pathData} stroke="black" fill="black" />;
+              return <path key={index} d={pathData} stroke={color} fill={color} />;
             })}
 
             {/* Render the current stroke */}
             {currentStroke.length > 0 && (
               <path
                 d={getSvgPathFromStroke(getStroke(currentStroke, {
-                  size: 16,
+                  size: lineWeight,
                   thinning: 0.5,
                   smoothing: 0.5,
                   streamline: 0.5,
                 }))}
-                stroke="black"
-                fill="black"
+                stroke={color}
+                fill={color}
               />
                 )}
           </svg>

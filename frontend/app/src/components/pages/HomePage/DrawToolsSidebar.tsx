@@ -1,81 +1,27 @@
 import * as React from 'react';
 
-import { Box, ButtonGroup, IconButton, Popover, Slider, Typography, styled } from "@mui/material";
+import { Box, ButtonGroup, IconButton, Popover, Slider, styled } from "@mui/material";
 
 
 import LineWeightIcon from '@mui/icons-material/LineWeight';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import { DrawToolsSidebarProps } from '../../../types/right-sidebar';
 
-//TODO: Move the buttons into seperate file
-const RedIconButton = styled(IconButton)({
-    backgroundColor: 'red',
-    color: 'white',
-    height: '1em',
-    width: '1em',
-    margin: '0.5em',
-    '&:hover': {
-        backgroundColor: 'darkred',
-    },
-});
+import { BlackIconButton, GreenIconButton, YellowIconButton } from '../../../utils/colorButtons';
+import { RedIconButton, BlueIconButton } from '../../../utils/colorButtons';
 
-const BlueIconButton = styled(IconButton)({
-    backgroundColor: 'blue',
-    color: 'white',
-    height: '1em',
-    width: '1em',
-    margin: '0.5em',
-    '&:hover': {
-        backgroundColor: 'darkblue',
-    },
-});
-
-const GreenIconButton = styled(IconButton)({
-    backgroundColor: 'green',
-    color: 'white',
-    height: '1em',
-    width: '1em',
-    margin: '0.5em',
-    '&:hover': {
-        backgroundColor: 'darkgreen',
-    },
-});
-
-const BlackIconButton = styled(IconButton)({
-    backgroundColor: 'black',
-    color: 'white',
-    height: '1em',
-    width: '1em',
-    margin: '0.5em',
-    borderRadius: '50%',
-    '&:hover': {
-        backgroundColor: 'gray',
-    },
-});
-
-const YellowIconButton = styled(IconButton)({
-    backgroundColor: 'yellow',
-    color: 'black', // Black text for better contrast
-    height: '1em',
-    width: '1em',
-    margin: '0.5em',
-    borderRadius: '50%', // Circular shape
-    '&:hover': {
-        backgroundColor: 'orange', // Slightly darker on hover
-    },
-});
-
-export default function DrawToolsSidebar() {
+export default function DrawToolsSidebar({handleColorChange, handleLineWeightChange}:DrawToolsSidebarProps) {
     const [anchorElColor, setAnchorElColor] = React.useState<null | HTMLElement>(null);
     const [anchorElLineWeight, setAnchorElLineWeight] = React.useState<null | HTMLElement>(null);
     
     const openColorChangePopUp = Boolean(anchorElColor);
     const openLineWeightPopUp = Boolean(anchorElLineWeight);
 
-    function handleColorChange(event: React.MouseEvent<HTMLElement>): void {
+    function triggerColorChange(event: React.MouseEvent<HTMLElement>): void {
         setAnchorElColor(anchorElColor ? null : event.currentTarget);
     }
 
-    function handleLineWeigtChange(event: React.MouseEvent<HTMLElement>): void {
+    function triggerLineWeightChange(event: React.MouseEvent<HTMLElement>): void {
         setAnchorElLineWeight(anchorElLineWeight ? null : event?.currentTarget);
     }
 
@@ -87,7 +33,7 @@ export default function DrawToolsSidebar() {
             }}
         >
 
-            <IconButton onClick={handleColorChange}>
+            <IconButton onClick={triggerColorChange}>
                 <ColorLensIcon/>
             </IconButton>
 
@@ -109,24 +55,28 @@ export default function DrawToolsSidebar() {
                     variant='text'
                 >
                     <BlackIconButton 
-                        
+                        onClick={()=> handleColorChange('black')}
                     />
+
                     <RedIconButton
-                        
+                        onClick={() => handleColorChange('red')}    
                     />
+
                     <BlueIconButton
-                        
+                        onClick={() => handleColorChange('blue')}    
                     />
+
                     <GreenIconButton
-                        
+                        onClick={() => handleColorChange('green')}    
                     />
+
                     <YellowIconButton
-                       
+                       onClick={() => handleColorChange('yellow')}
                     />
                 </ButtonGroup>
             </Popover>
 
-            <IconButton onClick={handleLineWeigtChange}>
+            <IconButton onClick={triggerLineWeightChange}>
                 <LineWeightIcon/>
             </IconButton>
 
@@ -152,6 +102,7 @@ export default function DrawToolsSidebar() {
                     }}
                 >
                     <Slider
+                        onChangeCommitted={(event, newVal)=>handleLineWeightChange(newVal as number)}
                         size='small'
                         min={1}
                         max={10}
