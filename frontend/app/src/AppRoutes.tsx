@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Login from './components/pages/SignIn';
-import SignUp from './components/pages/SignUp';
+import Login from './components/pages/LoginPage';
+import SignUp from './components/pages/SignUpPage';
 
-import Home from './components/pages/Home';
-import Welcome from './components/pages/Welcome';
+import Home from './components/pages/HomePage';
+import Welcome from './components/pages/WelcomePage';
 import { ButtonAppBarProps } from './types/navbar';
 
 export default function AppRoutes({handleThemeToggle, isDarkMode}: ButtonAppBarProps) {
