@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { getStroke } from 'perfect-freehand';
+
+import { Svg, SVG } from '@svgdotjs/svg.js';
 
 import { getSvgPathFromStroke } from '../../../utils/getSvgPathFromStroke';
 import { DrawCanvasProps } from '../../../types/draw-canvas';
@@ -11,70 +14,117 @@ export default function DrawCanvas({color, lineWeight}:DrawCanvasProps) {
     const [strokes, setStrokes] = React.useState<Stroke[]>([]);  // Store multiple strokes
     const [currentStroke, setCurrentStroke] = React.useState<Stroke>([]);  // Store the current stroke being drawn
 
-    
-      function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
-        const svg = e.currentTarget;
-        const { left, top } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
-        e.currentTarget.setPointerCapture(e.pointerId);
-        
-        // Adjust coordinates to be relative to the SVG
-        setCurrentStroke([[e.clientX - left, e.clientY - top, e.pressure]]);
+    const svgRef = React.useRef<SVGSVGElement|null>(null);
+    const [draw, setDraw] = React.useState<Svg|null>(null);
+
+    useEffect(() => {
+      if(svgRef.current) {
+        const canvas = SVG(svgRef.current);
+        setDraw(canvas);
+
+        //Clean up the canvas
+        return () => {
+          canvas.remove()
+        };
       }
-    
-      function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
-        if (e.buttons !== 1) return;
-        
-        const svg = e.currentTarget;
-        const { left, top } = svg.getBoundingClientRect();  // Adjust coordinates to the SVG
-        
-        setCurrentStroke(prevStroke => [
-          ...prevStroke, 
-          [e.clientX - left, e.clientY - top, e.pressure]
-        ]);
-      }
-    
-      function handlePointerUp() {
+    }, []);
+
+    useEffect(() => {
+      if(draw) {
+        draw.clear();
+        draw.on('pointerdown', (e: Event) => handlePointerDown(e as unknown as React.PointerEvent<SVGSVGElement>));
+        draw.on('pointermove', (e: Event) => handlePointerMove(e as unknown as React.PointerEvent<SVGSVGElement>));
+        draw.on('pointerup', () => handlePointerUp());
+
+        // Render all previous strokes
+        strokes.forEach(stroke => {
+          const pathData = getSvgPathFromStroke(getStroke(stroke, {
+            size: lineWeight,
+            thinning: 0.5,
+            smoothing: 0.5,
+            streamline: 0.5,
+          }));
+
+          draw.path(pathData).stroke({ color, width: lineWeight }).fill(color);
+        });
+
         if (currentStroke.length > 0) {
-          // Add the completed stroke to the strokes array
-          setStrokes(prevStrokes => [...prevStrokes, currentStroke]);
-          setCurrentStroke([]);  // Reset the current stroke
+          const currentPathData = getSvgPathFromStroke(getStroke(currentStroke, {
+            size: lineWeight,
+            thinning: 0.5,
+            smoothing: 0.5,
+            streamline: 0.5,
+          }));
+          draw.path(currentPathData).stroke({ color, width: lineWeight }).fill(color);
         }
       }
+    }, [strokes, currentStroke, draw, lineWeight, color]);
 
-      return (
-        <svg
-            height="100%"
-            width="100%"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            style={{ touchAction: 'none', margin: 0, padding: 0 }}
-          >
-            {/* Render previous strokes */}
-            {strokes.map((stroke, index) => {
-              const pathData = getSvgPathFromStroke(getStroke(stroke, {
-                size: lineWeight,
-                thinning: 0.5,
-                smoothing: 0.5,
-                streamline: 0.5,
-              }));
-              return <path key={index} d={pathData} stroke={color} fill={color} />;
-            })}
+    //--------------------------------------------------------------------------
+    // Pointer event handling functions
+    //--------------------------------------------------------------------------
+    function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+      const svg = e.currentTarget;
+      const { left, top } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
+      e.currentTarget.setPointerCapture(e.pointerId);
+      
+      // Adjust coordinates to be relative to the SVG
+      setCurrentStroke([[e.clientX - left, e.clientY - top, e.pressure]]);
+    }
+  
+    function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
+      if (e.buttons !== 1) return;
+      
+      const svg = e.currentTarget;
+      const { left, top } = svg.getBoundingClientRect();  // Adjust coordinates to the SVG
+      
+      setCurrentStroke(prevStroke => [
+        ...prevStroke, 
+        [e.clientX - left, e.clientY - top, e.pressure]
+      ]);
+    }
+  
+    function handlePointerUp() {
+      if (currentStroke.length > 0) {
+        // Add the completed stroke to the strokes array
+        setStrokes(prevStrokes => [...prevStrokes, currentStroke]);
+        setCurrentStroke([]);  // Reset the current stroke
+      }
+    }
 
-            {/* Render the current stroke */}
-            {currentStroke.length > 0 && (
-              <path
-                d={getSvgPathFromStroke(getStroke(currentStroke, {
-                  size: lineWeight,
-                  thinning: 0.5,
-                  smoothing: 0.5,
-                  streamline: 0.5,
-                }))}
-                stroke={color}
-                fill={color}
-              />
-                )}
-          </svg>
-      )
+    return (
+      <svg
+      height="100%"
+      width="100%"
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      style={{ touchAction: 'none', margin: 0, padding: 0 }}
+    >
+      {/* Render previous strokes */}
+      {strokes.map((stroke, index) => {
+        const pathData = getSvgPathFromStroke(getStroke(stroke, {
+          size: lineWeight,
+          thinning: 0.5,
+          smoothing: 0.5,
+          streamline: 0.5,
+        }));
+        return <path key={index} d={pathData} stroke={color} fill={color} />;
+      })}
 
+      {/* Render the current stroke */}
+      {currentStroke.length > 0 && (
+        <path
+          d={getSvgPathFromStroke(getStroke(currentStroke, {
+            size: lineWeight,
+            thinning: 0.5,
+            smoothing: 0.5,
+            streamline: 0.5,
+          }))}
+          stroke={color}
+          fill={color}
+        />
+          )}
+    </svg>
+    )
 }
