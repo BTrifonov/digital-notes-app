@@ -4,5 +4,7 @@
 
 export interface DrawCanvasProps {
     color: string, 
-    lineWeight: number
+    lineWeight: number,
+
+    //handleSaveNote: ()=>void;
 }

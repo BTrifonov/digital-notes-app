@@ -24,21 +24,27 @@ export default function RightSidebar({handleColorChange, handleLineWeightChange}
             }}
         >
 
-            <DrawToolsSidebar handleColorChange={handleColorChange} handleLineWeightChange={handleLineWeightChange}/>
+            <DrawToolsSidebar 
+                handleColorChange={handleColorChange} 
+                handleLineWeightChange={handleLineWeightChange}
+            />
 
             <Divider
                 sx={{
-                    margin: '1em'
+                    marginTop: '0.5em',
+                    marginBottom: '0.5em'
                 }}
+                variant="middle"
             />
-
 
             <NotesManagementSidebar/>
 
             <Divider
                 sx={{
-                    margin: '1em'
+                    marginTop: '0.5em',
+                    marginBottom: '0.5em'
                 }}
+                variant="middle"
             />
 
             <AIToolsSidebar/>

@@ -16,25 +16,21 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
   const theme = useTheme();
 
   /**
-   * Drawing hooks
+   * Drawing states
    */
   const [drawColor, setDrawColor] = React.useState<string>('black');
   const [lineWeight, setLineWeight] = React.useState<number>(5);
 
+  /**
+   * Managing notes states
+   */
+  const [saveNoteTriggered, setSaveNoteTriggered] = React.useState<boolean>(false);
 
-  const [saveNoteTriggered, setSaveNoteTrigger] = React.useState(false)
 
-  // default value of the canvas should be the full width
+  /**
+   * Layout states
+   */
   const [isNotesMenuOpen, setIsNotesMenuOpen] = React.useState<boolean>(false);
-
-  const handleNotesMenuToggle = () => {
-    setIsNotesMenuOpen(!isNotesMenuOpen);
-  }
-
-  const handleSaveNoteRequest = () => {
-    //TODO: Other than closing the dialog, one should here persist the digital note
-    setSaveNoteTrigger((prev)=> !prev);
-  }
 
   return (
     <Grid2 
@@ -48,7 +44,11 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
       columnSpacing={0.5}
     >
       <Grid2 size={12}>
-        <TopNavbar handleThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isAuth={true} handleNotesMenuToggle={handleNotesMenuToggle}/>
+        <TopNavbar 
+          handleThemeToggle={handleThemeToggle} 
+          isDarkMode={isDarkMode} 
+          isAuth={true} 
+          handleNotesMenuToggle={()=>setIsNotesMenuOpen((prev)=>!prev)}/>
       </Grid2>
 
       <Grid2 container display={'flex'} sx={{flexGrow:1}}>
@@ -65,9 +65,11 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
         <Grid2 
           size={isNotesMenuOpen ? 9 : 11} 
           sx={{
+            height: '1500',
             borderRadius: '1em',
             bgcolor: theme.palette.background.paper
           }}
+          overflow={'scroll'}
         >
           <DrawCanvas color={drawColor} lineWeight={lineWeight}/>
         </Grid2>
@@ -83,9 +85,10 @@ export default function HomePage({ handleThemeToggle, isDarkMode }: ButtonAppBar
         </Grid2>
       </Grid2>
 
-      <SaveNoteDialog handleSaveNote={handleSaveNoteRequest} isDialogOpen={saveNoteTriggered}/>
+      <SaveNoteDialog 
+        handleSaveNote={()=>setSaveNoteTriggered((prev)=>!prev)} 
+        isDialogOpen={saveNoteTriggered}
+      />
     </Grid2>
-
-
 );
 }

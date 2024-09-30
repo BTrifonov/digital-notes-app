@@ -5,12 +5,15 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 export default function NotesManagementSidebar() {
     return (
         <Box
-            sx={{
-                height: '100%',
-                width: '100%'
+            sx={{ 
+                display: 'flex',
+                flexDirection: 'column', 
+                justifyContent:'space-evenly'
             }}
         >
-            <IconButton>
+            <IconButton
+                size="small"
+            >
                 <SaveAsIcon/>
             </IconButton>
 

@@ -28,12 +28,17 @@ export default function DrawToolsSidebar({handleColorChange, handleLineWeightCha
     return (
         <Box
             sx={{
-                height: '100%',
-                width: '100%' 
+                display: 'flex',
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
+                gap: 2
             }}
         >
 
-            <IconButton onClick={triggerColorChange}>
+            <IconButton
+                size='small'
+                onClick={triggerColorChange}
+            >
                 <ColorLensIcon/>
             </IconButton>
 
@@ -76,7 +81,10 @@ export default function DrawToolsSidebar({handleColorChange, handleLineWeightCha
                 </ButtonGroup>
             </Popover>
 
-            <IconButton onClick={triggerLineWeightChange}>
+            <IconButton
+                size='small' 
+                onClick={triggerLineWeightChange}
+            >
                 <LineWeightIcon/>
             </IconButton>
 

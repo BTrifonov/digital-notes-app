@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { getStroke } from 'perfect-freehand';
-
-import { Svg, SVG } from '@svgdotjs/svg.js';
 
 import { getSvgPathFromStroke } from '../../../utils/getSvgPathFromStroke';
 import { DrawCanvasProps } from '../../../types/draw-canvas';
@@ -14,60 +11,22 @@ export default function DrawCanvas({color, lineWeight}:DrawCanvasProps) {
     const [strokes, setStrokes] = React.useState<Stroke[]>([]);  // Store multiple strokes
     const [currentStroke, setCurrentStroke] = React.useState<Stroke>([]);  // Store the current stroke being drawn
 
+
+    //TODO: Working on 
+    const [vertOriginY, setVertOriginY] = React.useState<number>(0);
+
     const svgRef = React.useRef<SVGSVGElement|null>(null);
-    const [draw, setDraw] = React.useState<Svg|null>(null);
-
-    useEffect(() => {
-      if(svgRef.current) {
-        const canvas = SVG(svgRef.current);
-        setDraw(canvas);
-
-        //Clean up the canvas
-        return () => {
-          canvas.remove()
-        };
-      }
-    }, []);
-
-    useEffect(() => {
-      if(draw) {
-        draw.clear();
-        draw.on('pointerdown', (e: Event) => handlePointerDown(e as unknown as React.PointerEvent<SVGSVGElement>));
-        draw.on('pointermove', (e: Event) => handlePointerMove(e as unknown as React.PointerEvent<SVGSVGElement>));
-        draw.on('pointerup', () => handlePointerUp());
-
-        // Render all previous strokes
-        strokes.forEach(stroke => {
-          const pathData = getSvgPathFromStroke(getStroke(stroke, {
-            size: lineWeight,
-            thinning: 0.5,
-            smoothing: 0.5,
-            streamline: 0.5,
-          }));
-
-          draw.path(pathData).stroke({ color, width: lineWeight }).fill(color);
-        });
-
-        if (currentStroke.length > 0) {
-          const currentPathData = getSvgPathFromStroke(getStroke(currentStroke, {
-            size: lineWeight,
-            thinning: 0.5,
-            smoothing: 0.5,
-            streamline: 0.5,
-          }));
-          draw.path(currentPathData).stroke({ color, width: lineWeight }).fill(color);
-        }
-      }
-    }, [strokes, currentStroke, draw, lineWeight, color]);
 
     //--------------------------------------------------------------------------
     // Pointer event handling functions
     //--------------------------------------------------------------------------
     function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
       const svg = e.currentTarget;
-      const { left, top } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
+      const { left, top, height } = svg.getBoundingClientRect();  // Get the position of the SVG in the viewport
       e.currentTarget.setPointerCapture(e.pointerId);
       
+      if(e.clientY > height) setVertOriginY(-(e.clientY-height));
+
       // Adjust coordinates to be relative to the SVG
       setCurrentStroke([[e.clientX - left, e.clientY - top, e.pressure]]);
     }
@@ -76,8 +35,11 @@ export default function DrawCanvas({color, lineWeight}:DrawCanvasProps) {
       if (e.buttons !== 1) return;
       
       const svg = e.currentTarget;
-      const { left, top } = svg.getBoundingClientRect();  // Adjust coordinates to the SVG
+      const { left, top, height } = svg.getBoundingClientRect();  // Adjust coordinates to the SVG
       
+      //Implement basic overflow functionality
+      if(e.clientY > height) setVertOriginY(-(e.clientY-height));
+
       setCurrentStroke(prevStroke => [
         ...prevStroke, 
         [e.clientX - left, e.clientY - top, e.pressure]
@@ -92,8 +54,13 @@ export default function DrawCanvas({color, lineWeight}:DrawCanvasProps) {
       }
     }
 
+    function loadSVG() {
+      
+    }
+
     return (
       <svg
+      ref={svgRef}
       height="100%"
       width="100%"
       onPointerDown={handlePointerDown}
